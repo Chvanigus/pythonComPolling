@@ -20,11 +20,11 @@ if __name__ == '__main__':
     while True:
         with PollingCom(settings.SERIAL_CONFIG) as ser:
             print(ser.readline())
-            c, addr = s.accept()
-            # Как только произошло открытие сокета - данные из COM порта отправляются на заданную машину
-            print('Открыто соединение с:', addr)
-            data = ser.readline()
-            c.send(data)
-            c.close()
-
-
+            result = s.connect((host, port))
+            if result == 0:
+                c, addr = s.accept()
+                # Как только произошло открытие сокета - данные из COM порта отправляются на заданную машину
+                print('Открыто соединение с:', addr)
+                data = ser.readline()
+                c.send(data)
+                c.close()
